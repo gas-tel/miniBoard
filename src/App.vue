@@ -1,15 +1,24 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <NoticeHeader/>
+  <NoticeBoard/>
+  <PageNation/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import NoticeBoard from '@/components/NoticeBoard.vue';
+import NoticeHeader from './components/NoticeHeader.vue';
+import PageNation from './components/PageNation.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    NoticeBoard,
+    NoticeHeader,
+    PageNation
+  },
+  data() {
+    return {
+    }
   }
 }
 </script>
@@ -17,10 +26,6 @@ export default {
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  
 }
 </style>
