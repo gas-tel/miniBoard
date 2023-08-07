@@ -1,28 +1,27 @@
 <template>
     <div class="post_container">
-        <div class="post_wrap" v-for="(item, index) in data" :key="index">
+        <div class="post_wrap" v-for="(item, index) in this.data" :key="index">
             <div class="post_header">
                 <span class="post_title">{{ item.title }}</span>   
-                <span class="post_num"><i class="xi-label-o"></i><span>{{ item.idx }}</span></span>   
-                <span class="post_name"><i class="xi-user-o"></i><span>{{ item.name }}</span></span>   
+                <span class="post_num"><i class="xi-label-o"></i><span>{{ item.id }}</span></span>   
+                <span class="post_name"><i class="xi-user-o"></i><span>{{ item.brand }}</span></span>   
             </div>
             <div class="post_body">
-                {{ item.content }}
             </div>
             <div class="post_footer">
-                <span class="post_date">{{ item.regDate }}</span>
-                <span class="post_cnt"><i class="xi-eye-o"></i><span>{{ item.viewCnt }}</span></span>
+                <span class="post_date">{{ item.rating }}</span>
+                <span class="post_cnt"><i class="xi-eye-o"></i><span>{{ item.stock }}</span></span>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import data from '@/assets/data'
 export default {
+    props : ['data'],
     data() {
         return {
-            data
+            
         }
     }
 }

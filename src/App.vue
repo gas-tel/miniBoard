@@ -1,12 +1,13 @@
 <template>
   <div id="app">
     <NoticeHeader/>
-    <NoticeBoard/>
+    <NoticeBoard :data="data"/>
     <PageNation/>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import NoticeBoard from '@/components/NoticeBoard.vue';
 import NoticeHeader from './components/NoticeHeader.vue';
 import PageNation from './components/PageNation.vue';
@@ -20,7 +21,27 @@ export default {
   },
   data() {
     return {
+      data : []
     }
+  },
+   methods: {
+    get() {
+      axios
+        .get('https://dummyjson.com/products')
+        .then((result) => {
+          this.data = result.data.products;
+          console.log(this.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          console.log("finally");
+        });
+    },
+  },
+  mounted() {
+    this.get();
   }
 }
 </script>
