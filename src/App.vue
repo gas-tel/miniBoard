@@ -1,7 +1,9 @@
 <template>
-  <NoticeHeader/>
-  <NoticeBoard/>
-  <PageNation/>
+  <div id="app">
+    <NoticeHeader/>
+    <NoticeBoard/>
+    <PageNation/>
+  </div>
 </template>
 
 <script>
@@ -24,8 +26,15 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
 }
+html {
+  font-size: 10px;
+  font-family: 'Pretendard-Regular';
+}
+#app {width: 38rem;}
 </style>
