@@ -8,6 +8,9 @@
 
 <script>
 import axios from 'axios';
+axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 import NoticeBoard from '@/components/NoticeBoard.vue';
 import NoticeHeader from './components/NoticeHeader.vue';
 import PageNation from './components/PageNation.vue';
@@ -21,27 +24,27 @@ export default {
   },
   data() {
     return {
-      data : []
+      data : [],
     }
   },
-   methods: {
-    get() {
-      axios
-        .get('https://dummyjson.com/products')
-        .then((result) => {
-          this.data = result.data.products;
-          console.log(this.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          console.log("finally");
-        });
-    },
+  methods: {
+
+    getList: function() {
+      const vm = this;
+      axios.post('/board/list?idx=25',{
+        withCredentials : true
+      })
+          .then(function(response) {
+            vm.data = response.data.data
+            console.log(vm.data);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+    }
   },
-  mounted() {
-    this.get();
+  created() {
+    this.getList()
   }
 }
 </script>
