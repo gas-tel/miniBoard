@@ -1,47 +1,60 @@
 <template>
-  <div id="app">
-    <NoticeHeader/>
-    <NoticeBoard :data="data"/>
-    <PageNation/>
-  </div>
+  <NoticeHeader :addPostState="addPostState" @addPostBtn="addPostBtn"/>
+  <NoticeBoard :data="data"/>
+  <PageNation/>
+  <AddPost :addPostState="addPostState" @addPostBtn="addPostBtn" @addPost="addPost"/>
+  {{ addPostState }}
 </template>
 
 <script>
 import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:8080';
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 import NoticeBoard from '@/components/NoticeBoard.vue';
 import NoticeHeader from './components/NoticeHeader.vue';
 import PageNation from './components/PageNation.vue';
+import AddPost from './components/AddPost.vue'
 
 export default {
   name: 'App',
   components: {
     NoticeBoard,
     NoticeHeader,
-    PageNation
+    PageNation,
+    AddPost
   },
   data() {
     return {
       data : [],
+      addPostState : false
     }
   },
   methods: {
-
+    addPostBtn(state){
+      this.addPostState = state
+    },
+    addPost(postInfo) {
+      axios
+        .post(`/board/add?title=${postInfo[0]}&name=${postInfo[1]}&content=${postInfo[2]}`)
+        .then(function(response) {
+          console.log(response);
+          this.$router.go();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
     getList: function() {
       const vm = this;
-      axios.post('/board/list?idx=25',{
-        withCredentials : true
-      })
-          .then(function(response) {
-            vm.data = response.data.data
-            console.log(vm.data);
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-    }
+      axios
+        .post('/board/list')
+        .then(function(response) {
+          vm.data = response.data.data
+          console.log(vm.data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+
   },
   created() {
     this.getList()
@@ -50,6 +63,7 @@ export default {
 </script>
 
 <style>
+@import url('./assets/reset.css');
 @font-face {
   font-family: 'Pretendard-Regular';
   src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -60,5 +74,5 @@ html {
   font-size: 10px;
   font-family: 'Pretendard-Regular';
 }
-#app {width: 38rem;}
+#app {max-width: 1280px; overflow: hidden; margin: 0 auto;}
 </style>
